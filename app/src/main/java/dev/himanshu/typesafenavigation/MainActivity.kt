@@ -32,11 +32,8 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.padding(innerPadding),
                         navController = navController, startDestination = Dest.ScreeA){
 
-                        composable(route = "screen_a") {
-                            ScreenA {
-                                navController
-                                    .navigate("screen_b")
-                            }
+                        composable<Dest.ScreeA> {
+                            ScreenA { navController.navigate(Dest.ScreenB) }
                         }
 
                         composable<Dest.ScreenB> {
