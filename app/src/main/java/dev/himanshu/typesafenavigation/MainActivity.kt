@@ -27,10 +27,56 @@ class MainActivity : ComponentActivity() {
         setContent {
             TypeSafeNavigationTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    val navController = rememberNavController()
+                    NavHost(
+                        modifier = Modifier.padding(innerPadding),
+                        navController = navController, startDestination = Dest.ScreeA){
+
+                        composable(route = "screen_a") {
+                            ScreenA {
+                                navController
+                                    .navigate("screen_b")
+                            }
+                        }
+
+                        composable<Dest.ScreenB> {
+                            ScreenB { navController.popBackStack() }
+                        }
+
+                    }
 
                 }
             }
         }
     }
 }
+
+sealed interface Dest{
+
+    @Serializable
+    data object ScreeA : Dest
+
+    @Serializable
+    data object ScreenB : Dest
+
+}
+
+@Composable
+fun ScreenA(modifier: Modifier = Modifier,onClick:()->Unit) {
+    Box(modifier=Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
+        Button(onClick = onClick) {
+            Text("Screen A")
+        }
+    }
+}
+
+@Composable
+fun ScreenB(modifier: Modifier = Modifier,onClick:()->Unit) {
+    Box(modifier=Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
+        Button(onClick = onClick) {
+            Text("Screen B")
+        }
+    }
+}
+
 
