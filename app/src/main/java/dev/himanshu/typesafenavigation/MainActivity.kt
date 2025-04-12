@@ -35,8 +35,6 @@ class MainActivity : ComponentActivity() {
                                 AuthScreen {
                                     navController.navigate(ProfileDest.ProfileScreen)
                                 }
-
-
                             }
                         }
 
